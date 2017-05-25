@@ -1,5 +1,5 @@
 {
-  "name": "fit-text",
+  "name": "text-fitter",
   "version": "0.0.1",
   "description": " Fixes all text-sizes to fit inside an element",
   "main": "src/index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/salomonelli/fit-text.git"
+    "url": "git+https://github.com/salomonelli/text-fitter.git"
   },
   "keywords": [
     "fit",
