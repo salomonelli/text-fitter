@@ -74,6 +74,60 @@ var TextFitter =
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var getChildren = function getChildren(element) {
+  return element.querySelectorAll('*');
+};
+
+var isOverflown = function isOverflown(element) {
+  // element.scrollHeight
+  // element.clientHeight
+  console.dir(element.scrollHeight);
+  return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+};
+
+var getFontSizeOfElement = function getFontSizeOfElement(element) {
+  var style = window.getComputedStyle(element, null).getPropertyValue('font-size');
+  return parseFloat(style);
+};
+
+var calcNewFontSizes = function calcNewFontSizes(elements) {
+  var ret = [];
+  elements.forEach(function (el) {
+    return ret.push(getFontSizeOfElement(el) * 0.90);
+  });
+  return ret;
+};
+
+var getContainerSize = function getContainerSize(container) {
+  var message = 'The width of the contents with padding: ' + container.scrollWidth + 'px.\n';
+  message += 'The height of the contents with padding: ' + container.scrollHeight + 'px.\n';
+  alert(message);
+};
+
+var getHeightOfElement = function getHeightOfElement(element) {
+  return parseFloat(window.getComputedStyle(element, null).getPropertyValue('height').replace('px', ''));
+};
+
+var fix = exports.fix = function fix(element) {
+  if (!element) throw new Error('TextFitter: Element to adjust font sizes is not defined.');
+  if (!isOverflown(element)) return;
+
+  var _loop = function _loop() {
+    var children = getChildren(element);
+    var newFontSizes = calcNewFontSizes(children);
+    children.forEach(function (el, i) {
+      return el.style.fontSize = newFontSizes[i] + 'px';
+    });
+  };
+
+  while (isOverflown(element)) {
+    _loop();
+  }
+};
+
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
