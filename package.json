@@ -17,10 +17,25 @@
     "html",
     "css"
   ],
+  "scripts": {
+    "lint": "eslint src/javascript.js",
+    "build": "webpack",
+    "dev": "webpack --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "author": "salomonelli",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/salomonelli/fit-text/issues"
   },
-  "homepage": "https://github.com/salomonelli/fit-text#readme"
+  "homepage": "https://github.com/salomonelli/fit-text#readme",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "eslint": "^3.19.0",
+    "webpack": "^2.5.1"
+  }
 }
