@@ -1,0 +1,26 @@
+{
+  "name": "fit-text",
+  "version": "0.0.1",
+  "description": " Fixes all text-sizes to fit inside an element",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/salomonelli/fit-text.git"
+  },
+  "keywords": [
+    "fit",
+    "text",
+    "javascript",
+    "html",
+    "css"
+  ],
+  "author": "salomonelli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/salomonelli/fit-text/issues"
+  },
+  "homepage": "https://github.com/salomonelli/fit-text#readme"
+}
