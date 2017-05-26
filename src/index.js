@@ -1,10 +1,9 @@
-const ATTRIBUTE = 'text-fitter';
 const getChildren = element => {
   return element.querySelectorAll('*');
 };
 
 const isOverflown = element => {
-    return  element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+  return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
 };
 
 const getFontSizeOfElement = element => {
@@ -19,9 +18,9 @@ const calcNewFontSizes = (elements, multiplier) => {
 };
 
 const getContainerSize = container => {
-    let message = 'The width of the contents with padding: ' + container.scrollWidth + 'px.\n';
-    message += 'The height of the contents with padding: ' + container.scrollHeight + 'px.\n';
-    alert (message);
+  let message = 'The width of the contents with padding: ' + container.scrollWidth + 'px.\n';
+  message += 'The height of the contents with padding: ' + container.scrollHeight + 'px.\n';
+  alert(message);
 };
 
 const getHeightOfElement = element => {
@@ -29,7 +28,7 @@ const getHeightOfElement = element => {
 };
 
 const shrinkText = element => {
-  while(isOverflown(element)) {
+  while (isOverflown(element)) {
     const children = getChildren(element);
     const newFontSizes = calcNewFontSizes(children, 0.99);
     children.forEach((el, i) => (el.style.fontSize = newFontSizes[i] + 'px'));
@@ -41,7 +40,7 @@ const enlargeText = element => {
     const children = getChildren(element);
     const newFontSizes = calcNewFontSizes(children, 1.01);
     children.forEach((el, i) => (el.style.fontSize = newFontSizes[i] + 'px'));
-  } while(!isOverflown(element));
+  } while (!isOverflown(element));
 };
 
 const getElements = () => {
@@ -49,8 +48,8 @@ const getElements = () => {
   return allElements.filter(el => el.getAttribute(ATTRIBUTE) !== null);
 };
 
-export function fix(enlarge = true) {
-  const elements = getElements();
+export function fix(elements, enlarge = true) {
+  if (!elements || elements.length < 1) throw new Error('TextFitter: No elements to adjust text.');
   if (elements.length < 1) return;
   elements.forEach(el => {
     if (enlarge || isOverflown(el)) {
