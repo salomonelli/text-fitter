@@ -1,4 +1,8 @@
-<img src="logo-readme.png"/>
+<p align="center">
+<img src="https://cdn.rawgit.com/salomonelli/text-fitter/801cc351/logo-readme.png"/>
+</p>
 
-# fit-text
-:black_nib: Fixes all text-sizes to fit inside an element
+# text-fitter
+
+
+## IN PROGRESS
