@@ -77,14 +77,16 @@ var TextFitter =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.fix = fix;
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var ATTRIBUTE = 'text-fitter';
 var getChildren = function getChildren(element) {
   return element.querySelectorAll('*');
 };
 
 var isOverflown = function isOverflown(element) {
-  // element.scrollHeight
-  // element.clientHeight
-  console.dir(element.scrollHeight);
   return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
 };
 
@@ -139,11 +141,24 @@ var enlargeText = function enlargeText(element) {
   } while (!isOverflown(element));
 };
 
-var fix = exports.fix = function fix(opts) {
-  if (!opts.element) throw new Error('TextFitter: Element to adjust font sizes is not defined.');
-  if (!opts.enlarge && !isOverflown(opts.element)) return;
-  if (!isOverflown(opts.element)) enlargeText(opts.element);
-  shrinkText(opts.element);
+var getElements = function getElements() {
+  var allElements = [].concat(_toConsumableArray(document.getElementsByTagName('*')));
+  return allElements.filter(function (el) {
+    return el.getAttribute(ATTRIBUTE) !== null;
+  });
+};
+
+function fix() {
+  var enlarge = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+  var elements = getElements();
+  if (elements.length < 1) return;
+  elements.forEach(function (el) {
+    if (enlarge || isOverflown(el)) {
+      if (!isOverflown(el)) enlargeText(el);
+      shrinkText(el);
+    }
+  });
 };
 
 /***/ }),

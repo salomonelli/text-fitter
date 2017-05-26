@@ -1,11 +1,9 @@
+const ATTRIBUTE = 'text-fitter';
 const getChildren = element => {
   return element.querySelectorAll('*');
 };
 
 const isOverflown = element => {
-    // element.scrollHeight
-    // element.clientHeight
-    console.dir(element.scrollHeight);
     return  element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
 };
 
@@ -46,9 +44,18 @@ const enlargeText = element => {
   } while(!isOverflown(element));
 };
 
-export const fix = opts => {
-  if (!opts.element) throw new Error('TextFitter: Element to adjust font sizes is not defined.');
-  if (!opts.enlarge && !isOverflown(opts.element)) return;
-  if (!isOverflown(opts.element)) enlargeText(opts.element);
-  shrinkText(opts.element);
+const getElements = () => {
+  const allElements = [...document.getElementsByTagName('*')];
+  return allElements.filter(el => el.getAttribute(ATTRIBUTE) !== null);
+};
+
+export function fix(enlarge = true) {
+  const elements = getElements();
+  if (elements.length < 1) return;
+  elements.forEach(el => {
+    if (enlarge || isOverflown(el)) {
+      if (!isOverflown(el)) enlargeText(el);
+      shrinkText(el);
+    }
+  });
 };
