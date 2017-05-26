@@ -11,9 +11,9 @@
   </div>
   <div class="form">
     <label> Height of box (in px)
-      <input value="200" />
+      <input id="height-of-box" value="200" />
     </label>
-    <a class="btn">Update </a>
+    <a class="btn" onClick="adjustHeight()">Update </a>
   </div>
   <div class="box-with-text">
     <h2>Headline</h2>
@@ -115,10 +115,16 @@
 
   <script type="text/javascript" src="dist/javascript.js"></script>
   <script>
+    var element = null;
     window.onload = function() {
-      var element = document.querySelector('.box-with-text');
+      element = document.querySelector('.box-with-text');
       TextFitter.fix(element);
     };
+    function adjustHeight() {
+      var newHeight = document.getElementById('height-of-box').value;
+      element.style.height = newHeight;
+      TextFitter.fix(element);
+    }
   </script>
 
 </body>
