@@ -93,10 +93,10 @@ var getFontSizeOfElement = function getFontSizeOfElement(element) {
   return parseFloat(style);
 };
 
-var calcNewFontSizes = function calcNewFontSizes(elements) {
+var calcNewFontSizes = function calcNewFontSizes(elements, multiplier) {
   var ret = [];
   elements.forEach(function (el) {
-    return ret.push(getFontSizeOfElement(el) * 0.90);
+    return ret.push(getFontSizeOfElement(el) * multiplier);
   });
   return ret;
 };
@@ -111,13 +111,10 @@ var getHeightOfElement = function getHeightOfElement(element) {
   return parseFloat(window.getComputedStyle(element, null).getPropertyValue('height').replace('px', ''));
 };
 
-var fix = exports.fix = function fix(element) {
-  if (!element) throw new Error('TextFitter: Element to adjust font sizes is not defined.');
-  if (!isOverflown(element)) return;
-
+var shrinkText = function shrinkText(element) {
   var _loop = function _loop() {
     var children = getChildren(element);
-    var newFontSizes = calcNewFontSizes(children);
+    var newFontSizes = calcNewFontSizes(children, 0.99);
     children.forEach(function (el, i) {
       return el.style.fontSize = newFontSizes[i] + 'px';
     });
@@ -126,6 +123,27 @@ var fix = exports.fix = function fix(element) {
   while (isOverflown(element)) {
     _loop();
   }
+};
+
+var enlargeText = function enlargeText(element) {
+  var _loop2 = function _loop2() {
+    var children = getChildren(element);
+    var newFontSizes = calcNewFontSizes(children, 1.01);
+    children.forEach(function (el, i) {
+      return el.style.fontSize = newFontSizes[i] + 'px';
+    });
+  };
+
+  do {
+    _loop2();
+  } while (!isOverflown(element));
+};
+
+var fix = exports.fix = function fix(opts) {
+  if (!opts.element) throw new Error('TextFitter: Element to adjust font sizes is not defined.');
+  if (!opts.enlarge && !isOverflown(opts.element)) return;
+  if (!isOverflown(opts.element)) enlargeText(opts.element);
+  shrinkText(opts.element);
 };
 
 /***/ }),

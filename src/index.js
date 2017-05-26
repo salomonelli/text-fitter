@@ -14,9 +14,9 @@ const getFontSizeOfElement = element => {
   return parseFloat(style);
 };
 
-const calcNewFontSizes = elements => {
+const calcNewFontSizes = (elements, multiplier) => {
   const ret = [];
-  elements.forEach(el => ret.push(getFontSizeOfElement(el) * 0.90));
+  elements.forEach(el => ret.push(getFontSizeOfElement(el) * multiplier));
   return ret;
 };
 
@@ -30,12 +30,25 @@ const getHeightOfElement = element => {
   return parseFloat(window.getComputedStyle(element, null).getPropertyValue('height').replace('px', ''));
 };
 
-export const fix = element => {
-  if (!element) throw new Error('TextFitter: Element to adjust font sizes is not defined.');
-  if (!isOverflown(element)) return;
+const shrinkText = element => {
   while(isOverflown(element)) {
     const children = getChildren(element);
-    const newFontSizes = calcNewFontSizes(children);
+    const newFontSizes = calcNewFontSizes(children, 0.99);
     children.forEach((el, i) => (el.style.fontSize = newFontSizes[i] + 'px'));
   }
+};
+
+const enlargeText = element => {
+  do {
+    const children = getChildren(element);
+    const newFontSizes = calcNewFontSizes(children, 1.01);
+    children.forEach((el, i) => (el.style.fontSize = newFontSizes[i] + 'px'));
+  } while(!isOverflown(element));
+};
+
+export const fix = opts => {
+  if (!opts.element) throw new Error('TextFitter: Element to adjust font sizes is not defined.');
+  if (!opts.enlarge && !isOverflown(opts.element)) return;
+  if (!isOverflown(opts.element)) enlargeText(opts.element);
+  shrinkText(opts.element);
 };

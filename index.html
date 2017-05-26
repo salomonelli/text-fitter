@@ -1,8 +1,10 @@
 <html>
+
 <head>
   <title>text-fitter - Live Demo</title>
 
 </head>
+
 <body>
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <a href="https://github.com/salomonelli/text-fitter"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
@@ -11,15 +13,29 @@
   </div>
   <div class="form">
     <label> Height of box (in px)
-      <input id="height-of-box" value="200" />
+      <input type="number" id="height-of-box" value="200" />
     </label>
-    <a class="btn" onClick="adjustHeight()">Update </a>
+    <div class="opt">
+      <input type="checkbox" id="enlarge-opt" />
+      <label for="enlarge-opt">
+        Enlarge font to fit element
+      </label>
+    </div>
+    <div class="opt">
+      <input type="checkbox" id="shrink-opt" checked />
+      <label for="shrink-opt">
+        Shrink font to fit element
+      </label>
+    </div>
+    <button onClick="adjustHeight()" id="submit-btn" class="btn">Update </button>
   </div>
   <div class="box-with-text">
     <h2>Headline</h2>
     <h3>Subheadline</h3>
     <p>
-      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
+      sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
+      rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
     </p>
   </div>
 
@@ -30,7 +46,93 @@
       margin: 0;
     }
 
-    .btn{
+    .opt {
+      margin-bottom: 10px
+    }
+
+    .opt:first-of-type {
+      margin-top: 20px;
+    }
+
+    .opt:last-of-type {
+      margin-bottom: 40px;
+    }
+
+    [type="checkbox"]+label {
+      position: relative;
+      padding-left: 35px;
+      cursor: pointer;
+      display: inline-block;
+      height: 25px;
+      line-height: 25px;
+      font-size: 1rem;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -khtml-user-select: none;
+      -ms-user-select: none;
+    }
+
+    [type="checkbox"]:not(.filled-in)+label:after {
+      border: 0;
+      -webkit-transform: scale(0);
+      transform: scale(0);
+    }
+
+    [type="checkbox"]:not(:checked),
+    [type="checkbox"]:checked {
+      position: absolute;
+      left: -9999px;
+      opacity: 0;
+    }
+
+    [type="checkbox"]:checked+label:before {
+      top: -4px;
+      left: -5px;
+      width: 12px;
+      height: 22px;
+      border-top: 2px solid transparent;
+      border-left: 2px solid transparent;
+      border-right: 2px solid #26a69a;
+      border-bottom: 2px solid #26a69a;
+      -webkit-transform: rotate(40deg);
+      transform: rotate(40deg);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-transform-origin: 100% 100%;
+      transform-origin: 100% 100%;
+    }
+
+    ghpages-materialize.css:1 [type="checkbox"]+label:before,
+    [type="checkbox"]:not(.filled-in)+label:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 18px;
+      height: 18px;
+      z-index: 0;
+      border: 2px solid #5a5a5a;
+      border-radius: 1px;
+      margin-top: 2px;
+      transition: .2s;
+    }
+
+    [type="checkbox"]+label:before,
+    [type="checkbox"]:not(.filled-in)+label:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 18px;
+      height: 18px;
+      z-index: 0;
+      border: 2px solid #5a5a5a;
+      border-radius: 1px;
+      margin-top: 2px;
+      transition: .2s;
+    }
+
+    .btn {
       text-decoration: none;
       color: #fff;
       background-color: #26a69a;
@@ -45,7 +147,7 @@
       line-height: 36px;
       padding: 0 2rem;
       text-transform: uppercase;
-      box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
       cursor: pointer;
     }
 
@@ -115,17 +217,33 @@
 
   <script type="text/javascript" src="dist/javascript.js"></script>
   <script>
+    function adjustHeight() {
+      var newHeight = document.getElementById('height-of-box').value;
+      var shrink = document.getElementById('shrink-opt').value;
+      var enlarge = document.getElementById('enlarge-opt').checked;
+      element.style.height = newHeight;
+      TextFitter.fix({
+        element: element,
+        shrink: shrink,
+        enlarge: enlarge
+      });
+    }
     var element = null;
     window.onload = function() {
       element = document.querySelector('.box-with-text');
-      TextFitter.fix(element);
+      TextFitter.fix({
+        element: element,
+        shrink: true,
+        enlarge: false
+      });
+      document.getElementById('height-of-box').onkeypress = function(e) {
+        var event = e || window.event;
+        var charCode = event.which || event.keyCode;
+        if (charCode == '13') adjustHeight();
+      }
     };
-    function adjustHeight() {
-      var newHeight = document.getElementById('height-of-box').value;
-      element.style.height = newHeight;
-      TextFitter.fix(element);
-    }
   </script>
 
 </body>
+
 </html>
