@@ -2,7 +2,15 @@ const getChildren = element => {
   return element.querySelectorAll('*');
 };
 
+const getInnerHeight = element => {
+  const height = window.getComputedStyle(element, null).getPropertyValue('height').replace('px', '');
+  return parseFloat(height);
+};
+
 const isOverflown = element => {
+  const height = getInnerHeight(element);
+  console.dir(element.scrollHeight);
+  console.dir(element.clientHeight);
   return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
 };
 
@@ -15,12 +23,6 @@ const calcNewFontSizes = (elements, multiplier) => {
   const ret = [];
   elements.forEach(el => ret.push(getFontSizeOfElement(el) * multiplier));
   return ret;
-};
-
-const getContainerSize = container => {
-  let message = 'The width of the contents with padding: ' + container.scrollWidth + 'px.\n';
-  message += 'The height of the contents with padding: ' + container.scrollHeight + 'px.\n';
-  alert(message);
 };
 
 const getHeightOfElement = element => {
@@ -48,7 +50,13 @@ const getElements = () => {
   return allElements.filter(el => el.getAttribute(ATTRIBUTE) !== null);
 };
 
-export function fix(elements, enlarge = true) {
+const generateArray = elements => {
+  if(elements.constructor.name === 'HTMLCollection') return [...elements];
+  return elements;
+};
+
+export function fix(els, enlarge = true) {
+  const elements = generateArray(els);
   if (!elements || elements.length < 1) throw new Error('TextFitter: No elements to adjust text.');
   if (elements.length < 1) return;
   elements.forEach(el => {

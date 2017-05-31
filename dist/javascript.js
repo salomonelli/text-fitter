@@ -81,12 +81,19 @@ exports.fix = fix;
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-var ATTRIBUTE = 'text-fitter';
 var getChildren = function getChildren(element) {
   return element.querySelectorAll('*');
 };
 
+var getInnerHeight = function getInnerHeight(element) {
+  var height = window.getComputedStyle(element, null).getPropertyValue('height').replace('px', '');
+  return parseFloat(height);
+};
+
 var isOverflown = function isOverflown(element) {
+  var height = getInnerHeight(element);
+  console.dir(element.scrollHeight);
+  console.dir(element.clientHeight);
   return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
 };
 
@@ -101,12 +108,6 @@ var calcNewFontSizes = function calcNewFontSizes(elements, multiplier) {
     return ret.push(getFontSizeOfElement(el) * multiplier);
   });
   return ret;
-};
-
-var getContainerSize = function getContainerSize(container) {
-  var message = 'The width of the contents with padding: ' + container.scrollWidth + 'px.\n';
-  message += 'The height of the contents with padding: ' + container.scrollHeight + 'px.\n';
-  alert(message);
 };
 
 var getHeightOfElement = function getHeightOfElement(element) {
@@ -148,10 +149,16 @@ var getElements = function getElements() {
   });
 };
 
-function fix() {
-  var enlarge = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+var generateArray = function generateArray(elements) {
+  if (elements.constructor.name === 'HTMLCollection') return [].concat(_toConsumableArray(elements));
+  return elements;
+};
 
-  var elements = getElements();
+function fix(els) {
+  var enlarge = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+  var elements = generateArray(els);
+  if (!elements || elements.length < 1) throw new Error('TextFitter: No elements to adjust text.');
   if (elements.length < 1) return;
   elements.forEach(function (el) {
     if (enlarge || isOverflown(el)) {

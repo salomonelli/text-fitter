@@ -264,8 +264,9 @@
       TextFitter.fix(elements, enlarge);
     }
     window.onload = function() {
-      elements = [document.getElementsByClassName('box-with-text')];
-      TextFitter.fix();
+      elements = document.getElementsByClassName('box-with-text');
+      console.dir(elements);
+      TextFitter.fix(elements, true);
       document.getElementById('height-of-box').onkeypress = function(e) {
         var event = e || window.event;
         var charCode = event.which || event.keyCode;
