@@ -38,8 +38,7 @@ window.onload = function() {
 
 ### Enlarge font to fit
 
-<img src="docs/enlarge_before.png" /> <img src="docs/enlarge_after.png" />
-
+<img src="docs/enlarge_before.png"  width="50%"/> <img src="docs/enlarge_after.png" width="50%"/>
 
 To automatically enlarge the font to fit the element do the following:
 ```javascript
