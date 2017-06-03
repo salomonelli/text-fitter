@@ -180,8 +180,8 @@ function fix(els) {
   if (elements.length < 1) return;
   elements.forEach(function (el) {
     var children = getChildren(el);
+    el.innerHTML = '<div class="' + WRAPPER_CLASSNAME + '">' + el.innerHTML + '</div>';
     if ((enlarge || isOverflown(el)) && children.length > 0) {
-      el.innerHTML = '<div class="' + WRAPPER_CLASSNAME + '">' + el.innerHTML + '</div>';
       getContentWrapper(el).style.display = 'inline-block';
       if (!isOverflown(el)) enlargeText(el);
       shrinkText(el);

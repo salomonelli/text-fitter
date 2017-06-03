@@ -44,7 +44,6 @@ const setFontSizes = (elements, fontSizes) => {
 };
 
 const shrinkText = element => {
-  console.log('shrink');
   while(isOverflown(element)) {
     const children = getChildren(element);
     const newFontSizes = calcNewFontSizes(children, 0.99);
@@ -53,7 +52,6 @@ const shrinkText = element => {
 };
 
 const enlargeText = element => {
-  console.log('enlarge');
   do {
     const children = getChildren(element);
     const newFontSizes = calcNewFontSizes(children, 1.01);
@@ -81,8 +79,8 @@ export function fix(els, enlarge = true) {
   if (elements.length < 1) return;
   elements.forEach(el => {
     const children = getChildren(el);
+    el.innerHTML ='<div class="' + WRAPPER_CLASSNAME + '">' + el.innerHTML + '</div>';
     if ((enlarge || isOverflown(el)) && children.length > 0) {
-      el.innerHTML ='<div class="' + WRAPPER_CLASSNAME + '">' + el.innerHTML + '</div>';
       getContentWrapper(el).style.display = 'inline-block';
       if (!isOverflown(el)) enlargeText(el);
       shrinkText(el);
