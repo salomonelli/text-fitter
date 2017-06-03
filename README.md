@@ -17,7 +17,7 @@ npm install text-fitter --save
 ```javascript
 import {fix} from 'text-fitter';
 const element = document.getElementById('any-id');
-fix(element, true);
+fix(element);
 ```
 </details>
 
@@ -29,8 +29,21 @@ fix(element, true);
 <script>
 window.onload = function() {
   var element = document.getElementById('any-id');
-  TextFitter.fix(element, true);
+  TextFitter.fix(element);
 };
 </script>
 ```
 </details>
+
+
+### Enlarge font to fit
+
+<img src="docs/enlarge_before.png" /> <img src="docs/enlarge_after.png" />
+
+
+To automatically enlarge the font to fit the element do the following:
+```javascript
+fix(element, true);
+```
+
+The second parameter is optional and is set by default to false.
