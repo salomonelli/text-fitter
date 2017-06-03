@@ -2,6 +2,22 @@
 
 [![npm version](https://badge.fury.io/js/text-fitter.svg)](https://badge.fury.io/js/text-fitter) [![Build Status](https://travis-ci.org/salomonelli/text-fitter.svg?branch=master)](https://travis-ci.org/salomonelli/text-fitter)
 
+Pure javascript implementation that fixes any content of an element to fit. <a href="https://salomonelli.github.io/text-fitter/">View demo.</a>
+
+<table border="0">
+  <tbody>
+    <tr>
+      <td>Before</td>
+      <td>After</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td><img src="docs/shrink_before.png" /></td>
+      <td><img src="docs/shrink_after.png" /></td>
+    </tr>
+  </tbody>
+</table>
 
 ## Quickstart
 
