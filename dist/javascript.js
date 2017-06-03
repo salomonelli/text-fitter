@@ -92,9 +92,7 @@ var getInnerHeight = function getInnerHeight(element) {
 
 var isOverflown = function isOverflown(element) {
   var height = getInnerHeight(element);
-  console.dir(element.scrollHeight);
-  console.dir(element.clientHeight);
-  return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+  return element.scrollHeight > element.clientHeight; //|| element.scrollWidth > element.clientWidth;
 };
 
 var getFontSizeOfElement = function getFontSizeOfElement(element) {
@@ -114,22 +112,38 @@ var getHeightOfElement = function getHeightOfElement(element) {
   return parseFloat(window.getComputedStyle(element, null).getPropertyValue('height').replace('px', ''));
 };
 
+var fontSizesAreTooSmall = function fontSizesAreTooSmall(fontSizes) {
+  var tooSmall = false;
+  fontSizes.forEach(function (fontSize) {
+    if (Math.round(fontSize) < 1) tooSmall = true;
+  });
+  return tooSmall;
+};
+
+var setFontSizes = function setFontSizes(elements, fontSizes) {
+  elements.forEach(function (el, i) {
+    el.style.fontSize = fontSizes[i] + 'px';
+  });
+};
+
 var shrinkText = function shrinkText(element) {
-  var _loop = function _loop() {
+  var fixFont = function fixFont(element, fontSizes, contentIsGreaterThanPage) {
     var children = getChildren(element);
-    var newFontSizes = calcNewFontSizes(children, 0.99);
     children.forEach(function (el, i) {
       return el.style.fontSize = newFontSizes[i] + 'px';
     });
+    if (contentIsGreaterThanPage(resume, page)) {
+      var _newFontSizes = calcNewFontSizes(children, 0.99);
+      fixFont(element, _newFontSizes, contentIsGreaterThanPage);
+    }
   };
-
-  while (isOverflown(element)) {
-    _loop();
-  }
+  var children = getChildren(element);
+  var newFontSizes = calcNewFontSizes(children, 0.99);
+  if (isOverflown(element) && !fontSizesAreTooSmall(newFontSizes)) fixFont(element, newFontSizes, contentIsGreaterThanPage);
 };
 
 var enlargeText = function enlargeText(element) {
-  var _loop2 = function _loop2() {
+  var _loop = function _loop() {
     var children = getChildren(element);
     var newFontSizes = calcNewFontSizes(children, 1.01);
     children.forEach(function (el, i) {
@@ -138,7 +152,7 @@ var enlargeText = function enlargeText(element) {
   };
 
   do {
-    _loop2();
+    _loop();
   } while (!isOverflown(element));
 };
 

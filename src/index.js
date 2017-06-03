@@ -9,9 +9,7 @@ const getInnerHeight = element => {
 
 const isOverflown = element => {
   const height = getInnerHeight(element);
-  console.dir(element.scrollHeight);
-  console.dir(element.clientHeight);
-  return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+  return element.scrollHeight > element.clientHeight; //|| element.scrollWidth > element.clientWidth;
 };
 
 const getFontSizeOfElement = element => {
@@ -29,12 +27,35 @@ const getHeightOfElement = element => {
   return parseFloat(window.getComputedStyle(element, null).getPropertyValue('height').replace('px', ''));
 };
 
+const fontSizesAreTooSmall = fontSizes => {
+  let tooSmall = false;
+  fontSizes.forEach(fontSize => {
+    if(Math.round(fontSize) < 1) tooSmall = true;
+  });
+  return tooSmall;
+};
+
+const setFontSizes = (elements, fontSizes) => {
+  elements.forEach((el, i) => {
+    el.style.fontSize = fontSizes[i] + 'px';
+  });
+};
+
 const shrinkText = element => {
-  while (isOverflown(element)) {
+  const fixFont = (element, fontSizes, contentIsGreaterThanPage) => {
     const children = getChildren(element);
-    const newFontSizes = calcNewFontSizes(children, 0.99);
     children.forEach((el, i) => (el.style.fontSize = newFontSizes[i] + 'px'));
-  }
+    if (contentIsGreaterThanPage(resume, page)){
+      const newFontSizes = calcNewFontSizes(children, 0.99);
+      fixFont(element, newFontSizes, contentIsGreaterThanPage);
+    }
+  };
+  const children = getChildren(element);
+  const newFontSizes = calcNewFontSizes(children, 0.99);
+  if (
+    isOverflown(element) &&
+    !fontSizesAreTooSmall(newFontSizes)
+  ) fixFont(element, newFontSizes, contentIsGreaterThanPage);
 };
 
 const enlargeText = element => {
