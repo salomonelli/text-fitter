@@ -81,6 +81,7 @@ exports.fix = fix;
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+var WRAPPER_CLASSNAME = 'text-fitter-wrapper';
 var getChildren = function getChildren(element) {
   return element.querySelectorAll('*');
 };
@@ -92,7 +93,8 @@ var getInnerHeight = function getInnerHeight(element) {
 
 var isOverflown = function isOverflown(element) {
   var height = getInnerHeight(element);
-  return element.scrollHeight > element.clientHeight; //|| element.scrollWidth > element.clientWidth;
+  var contentHeight = getContentWrapper(element).offsetHeight;
+  return contentHeight >= height;
 };
 
 var getFontSizeOfElement = function getFontSizeOfElement(element) {
@@ -127,23 +129,21 @@ var setFontSizes = function setFontSizes(elements, fontSizes) {
 };
 
 var shrinkText = function shrinkText(element) {
-  var fixFont = function fixFont(element, fontSizes, contentIsGreaterThanPage) {
+  var _loop = function _loop() {
     var children = getChildren(element);
+    var newFontSizes = calcNewFontSizes(children, 0.99);
     children.forEach(function (el, i) {
       return el.style.fontSize = newFontSizes[i] + 'px';
     });
-    if (contentIsGreaterThanPage(resume, page)) {
-      var _newFontSizes = calcNewFontSizes(children, 0.99);
-      fixFont(element, _newFontSizes, contentIsGreaterThanPage);
-    }
   };
-  var children = getChildren(element);
-  var newFontSizes = calcNewFontSizes(children, 0.99);
-  if (isOverflown(element) && !fontSizesAreTooSmall(newFontSizes)) fixFont(element, newFontSizes, contentIsGreaterThanPage);
+
+  while (isOverflown(element)) {
+    _loop();
+  }
 };
 
 var enlargeText = function enlargeText(element) {
-  var _loop = function _loop() {
+  var _loop2 = function _loop2() {
     var children = getChildren(element);
     var newFontSizes = calcNewFontSizes(children, 1.01);
     children.forEach(function (el, i) {
@@ -152,7 +152,7 @@ var enlargeText = function enlargeText(element) {
   };
 
   do {
-    _loop();
+    _loop2();
   } while (!isOverflown(element));
 };
 
@@ -168,6 +168,10 @@ var generateArray = function generateArray(elements) {
   return elements;
 };
 
+var getContentWrapper = function getContentWrapper(element) {
+  return element.querySelectorAll('.' + WRAPPER_CLASSNAME)[0];
+};
+
 function fix(els) {
   var enlarge = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
@@ -175,9 +179,13 @@ function fix(els) {
   if (!elements || elements.length < 1) throw new Error('TextFitter: No elements to adjust text.');
   if (elements.length < 1) return;
   elements.forEach(function (el) {
-    if (enlarge || isOverflown(el)) {
+    var children = getChildren(el);
+    if ((enlarge || isOverflown(el)) && children.length > 0) {
+      el.innerHTML = '<div class="' + WRAPPER_CLASSNAME + '">' + el.innerHTML + '</div>';
+      getContentWrapper(el).style.display = 'inline-block';
       if (!isOverflown(el)) enlargeText(el);
       shrinkText(el);
+      getContentWrapper(el).style.display = 'unset';
     }
   });
 };

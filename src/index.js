@@ -1,3 +1,4 @@
+const WRAPPER_CLASSNAME = 'text-fitter-wrapper';
 const getChildren = element => {
   return element.querySelectorAll('*');
 };
@@ -7,9 +8,10 @@ const getInnerHeight = element => {
   return parseFloat(height);
 };
 
-const isOverflown = element => {
+const isOverflown = (element) => {
   const height = getInnerHeight(element);
-  return element.scrollHeight > element.clientHeight; //|| element.scrollWidth > element.clientWidth;
+  const contentHeight = getContentWrapper(element).offsetHeight;
+  return contentHeight >= height;
 };
 
 const getFontSizeOfElement = element => {
@@ -42,20 +44,11 @@ const setFontSizes = (elements, fontSizes) => {
 };
 
 const shrinkText = element => {
-  const fixFont = (element, fontSizes, contentIsGreaterThanPage) => {
+  while(isOverflown(element)) {
     const children = getChildren(element);
+    const newFontSizes = calcNewFontSizes(children, 0.99);
     children.forEach((el, i) => (el.style.fontSize = newFontSizes[i] + 'px'));
-    if (contentIsGreaterThanPage(resume, page)){
-      const newFontSizes = calcNewFontSizes(children, 0.99);
-      fixFont(element, newFontSizes, contentIsGreaterThanPage);
-    }
-  };
-  const children = getChildren(element);
-  const newFontSizes = calcNewFontSizes(children, 0.99);
-  if (
-    isOverflown(element) &&
-    !fontSizesAreTooSmall(newFontSizes)
-  ) fixFont(element, newFontSizes, contentIsGreaterThanPage);
+  }
 };
 
 const enlargeText = element => {
@@ -76,14 +69,22 @@ const generateArray = elements => {
   return elements;
 };
 
+const getContentWrapper = element => {
+  return element.querySelectorAll('.' + WRAPPER_CLASSNAME)[0];
+};
+
 export function fix(els, enlarge = true) {
   const elements = generateArray(els);
   if (!elements || elements.length < 1) throw new Error('TextFitter: No elements to adjust text.');
   if (elements.length < 1) return;
   elements.forEach(el => {
-    if (enlarge || isOverflown(el)) {
+    const children = getChildren(el);
+    if ((enlarge || isOverflown(el)) && children.length > 0) {
+      el.innerHTML ='<div class="' + WRAPPER_CLASSNAME + '">' + el.innerHTML + '</div>';
+      getContentWrapper(el).style.display = 'inline-block';
       if (!isOverflown(el)) enlargeText(el);
       shrinkText(el);
+      getContentWrapper(el).style.display = 'unset';
     }
   });
 };
