@@ -19,8 +19,8 @@ Pure javascript implementation that fixes any content to fit the element. <a hre
   </tbody>
   <tbody>
     <tr>
-      <td><img src="docs/shrink_before.png" /></td>
-      <td><img src="docs/shrink_after.png" /></td>
+      <td><img src="docs/shrink1.png" /></td>
+      <td><img src="docs/shrink2.png" /></td>
     </tr>
   </tbody>
 </table>
@@ -67,8 +67,8 @@ If the content is too small to fill the entire element, content is enlarged. Thi
   </tbody>
   <tbody>
     <tr>
-      <td><img src="docs/enlarge_before.png" /></td>
-      <td><img src="docs/enlarge_after.png" /></td>
+      <td><img src="docs/enlarge1.png" /></td>
+      <td><img src="docs/enlarge2.png" /></td>
     </tr>
   </tbody>
 </table>
