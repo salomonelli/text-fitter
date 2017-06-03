@@ -15,6 +15,9 @@ npm install text-fitter --save
   <summary>ES7</summary>
 
 ```javascript
+import {fix} from 'text-fitter';
+const element = document.getElementById('any-id');
+fix(element, true);
 ```
 </details>
 
