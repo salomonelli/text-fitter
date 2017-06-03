@@ -8,8 +8,7 @@
   "scripts": {
     "lint": "eslint src/javascript.js",
     "build": "webpack",
-    "dev": "webpack --watch",
-    "test": "mocha --compilers js:babel-core/register"
+    "dev": "webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -29,15 +28,12 @@
   },
   "homepage": "https://github.com/salomonelli/fit-text#readme",
   "devDependencies": {
-    "assert": "^1.4.1",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.0.0",
     "babel-preset-es2015": "^6.24.1",
     "eslint": "^3.19.0",
-    "jsdom": "^11.0.0",
-    "mocha": "^3.4.2",
     "webpack": "^2.5.1"
   }
 }

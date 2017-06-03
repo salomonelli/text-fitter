@@ -37,8 +37,8 @@ npm install text-fitter --save
 ES7
 ```javascript
 import {fix} from 'text-fitter';
-const element = document.getElementById('any-id');
-fix(element);
+const elements = document.querySelectorAll('.any-class');
+fix(elements); // elements can be an array or html list
 ```
 
 VanillaJS
@@ -46,14 +46,16 @@ VanillaJS
 <script type="text/javascript" src="dist/javascript.js"></script>
 <script>
 window.onload = function() {
-  var element = document.getElementById('any-id');
-  TextFitter.fix(element);
+  var elements = document.getElementById('any-id');
+  TextFitter.fix(elements); // elements can be an array or html list
 };
 </script>
 ```
 
 
-### Enlarge font to fit
+### Disable font enlargement
+
+If the content is too small to fill the entire element, content is enlarged. This is set by default.
 
 <table border="0">
   <tbody>
@@ -72,9 +74,9 @@ window.onload = function() {
 
 
 
-To automatically enlarge the font to fit the element do the following:
+To disable set second parameter to false:
 ```javascript
-fix(element, true);
+fix(elements, false); // elements can be an array or html list
 ```
 
 The second parameter is optional and is set by default to false.

@@ -44,6 +44,7 @@ const setFontSizes = (elements, fontSizes) => {
 };
 
 const shrinkText = element => {
+  console.log('shrink');
   while(isOverflown(element)) {
     const children = getChildren(element);
     const newFontSizes = calcNewFontSizes(children, 0.99);
@@ -52,6 +53,7 @@ const shrinkText = element => {
 };
 
 const enlargeText = element => {
+  console.log('enlarge');
   do {
     const children = getChildren(element);
     const newFontSizes = calcNewFontSizes(children, 1.01);
