@@ -29,19 +29,14 @@ Install the package with
 npm install text-fitter --save
 ```
 
-<details>
-  <summary>ES7</summary>
-
+ES7
 ```javascript
 import {fix} from 'text-fitter';
 const element = document.getElementById('any-id');
 fix(element);
 ```
-</details>
 
-<details>
-  <summary>Vanilla JS</summary>
-
+VanillaJS
 ```html
 <script type="text/javascript" src="dist/javascript.js"></script>
 <script>
@@ -51,7 +46,6 @@ window.onload = function() {
 };
 </script>
 ```
-</details>
 
 
 ### Enlarge font to fit
