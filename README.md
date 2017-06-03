@@ -38,7 +38,7 @@ window.onload = function() {
 
 ### Enlarge font to fit
 
-<table>
+<table border="0">
   <tbody>
     <tr>
       <td>Before</td>
