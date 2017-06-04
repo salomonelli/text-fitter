@@ -85,6 +85,7 @@ export function fix(els, enlarge = true) {
       if (!isOverflown(el)) enlargeText(el);
       shrinkText(el);
       getContentWrapper(el).style.display = 'unset';
+      getContentWrapper(el).style.height = '100%';
     }
   });
 };
