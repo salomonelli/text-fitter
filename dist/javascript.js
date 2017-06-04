@@ -186,8 +186,12 @@ function fix(els) {
       if (!isOverflown(el)) enlargeText(el);
       shrinkText(el);
       getContentWrapper(el).style.display = 'unset';
-      getContentWrapper(el).style.height = '100%';
     }
+  });
+  var wrapperElements = document.querySelectorAll('.' + WRAPPER_CLASSNAME);
+  var wrappers = generateArray(wrapperElements);
+  wrappers.forEach(function (wrapper) {
+    return wrapper.style.height = '100%';
   });
 };
 
