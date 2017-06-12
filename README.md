@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/logo-readme.png" />
+  <img src="https://raw.githubusercontent.com/salomonelli/text-fitter/master/docs/logo-readme.png" />
 </p>
 
 
@@ -19,8 +19,8 @@ Pure javascript implementation that fixes any content to fit the element. <a hre
   </tbody>
   <tbody>
     <tr>
-      <td><img src="docs/shrink1.png" /></td>
-      <td><img src="docs/shrink2.png" /></td>
+      <td><img src="https://raw.githubusercontent.com/salomonelli/text-fitter/master/docs/shrink1.png" /></td>
+      <td><img src="https://raw.githubusercontent.com/salomonelli/text-fitter/master/" /></td>
     </tr>
   </tbody>
 </table>
@@ -67,8 +67,8 @@ If the content is too small to fill the entire element, content is enlarged. Thi
   </tbody>
   <tbody>
     <tr>
-      <td><img src="docs/enlarge1.png" /></td>
-      <td><img src="docs/enlarge2.png" /></td>
+      <td><img src="https://raw.githubusercontent.com/salomonelli/text-fitter/master/docs/enlarge1.png" /></td>
+      <td><img src="https://raw.githubusercontent.com/salomonelli/text-fitter/master/docs/enlarge2.png" /></td>
     </tr>
   </tbody>
 </table>
