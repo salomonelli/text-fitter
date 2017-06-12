@@ -82,12 +82,12 @@ export function fix(els, enlarge = true) {
     el.innerHTML ='<div class="' + WRAPPER_CLASSNAME + '">' + el.innerHTML + '</div>';
     if ((enlarge || isOverflown(el)) && children.length > 0) {
       getContentWrapper(el).style.display = 'inline-block';
-      if (!isOverflown(el)) enlargeText(el);
+      if (!isOverflown(el))  enlargeText(el);
       shrinkText(el);
       getContentWrapper(el).style.display = 'unset';
     }
   });
   const wrapperElements = document.querySelectorAll('.'+WRAPPER_CLASSNAME);
   const wrappers = generateArray(wrapperElements);
-  wrappers.forEach(wrapper => wrapper.style.height= '100%');
+  // wrappers.forEach(wrapper => wrapper.style.height= '100%');
 };

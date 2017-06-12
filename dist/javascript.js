@@ -190,9 +190,7 @@ function fix(els) {
   });
   var wrapperElements = document.querySelectorAll('.' + WRAPPER_CLASSNAME);
   var wrappers = generateArray(wrapperElements);
-  wrappers.forEach(function (wrapper) {
-    return wrapper.style.height = '100%';
-  });
+  // wrappers.forEach(wrapper => wrapper.style.height= '100%');
 };
 
 /***/ }),
