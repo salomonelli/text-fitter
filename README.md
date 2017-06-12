@@ -20,7 +20,7 @@ Pure javascript implementation that fixes any content to fit the element. <a hre
   <tbody>
     <tr>
       <td><img src="https://raw.githubusercontent.com/salomonelli/text-fitter/master/docs/shrink1.png" /></td>
-      <td><img src="https://raw.githubusercontent.com/salomonelli/text-fitter/master/shrink2.png" /></td>
+      <td><img src="https://raw.githubusercontent.com/salomonelli/text-fitter/master/docs/shrink2.png" /></td>
     </tr>
   </tbody>
 </table>
