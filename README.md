@@ -25,6 +25,9 @@ Pure javascript implementation that fixes any content to fit the element. <a hre
   </tbody>
 </table>
 
+## You should use this project if ...
+
+Any kind of layouting should be done (if possible) in CSS. If the performance of your site is important, use this project only to a limited extend. Try to use relative fonts wherever possible. This project might be interesting for you if you are trying to layout unknown content or for small effects.
 
 
 ## Quickstart
