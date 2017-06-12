@@ -1,6 +1,6 @@
 {
   "name": "text-fitter",
-  "version": "1.0.0.",
+  "version": "1.0.0",
   "description": " Fixes all text-sizes to fit inside an element",
   "main": "dist/javascript.js",
   "jsnext:main": "src/index.js",
